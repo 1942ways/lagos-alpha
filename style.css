@@ -1,0 +1,177 @@
+:root {
+  --primary-gold: #D4AF37;
+  --secondary-cyan: #00FFFF;
+  --dark-bg: #0A0A0A;
+  --card-bg: #1A1A1A;
+  --text-white: #FFFFFF;
+  --text-muted: #A0A0A0;
+  --gradient: linear-gradient(135deg, var(--primary-gold), #FFD700);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
+}
+
+body {
+  background-color: var(--dark-bg);
+  color: var(--text-white);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism Navigation */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 5%;
+  position: relative;
+  background: linear-gradient(rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.9)), url('assets/hero.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-content h1 {
+  font-size: 4.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  letter-spacing: -2px;
+  animation: fadeInDown 1s ease-out;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto 40px;
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.cta-button {
+  padding: 18px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  background: var(--gradient);
+  color: #000;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+  display: inline-block;
+  animation: fadeInUp 1s ease-out 1s both;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Features Section */
+.features {
+  padding: 100px 5%;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 60px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  border-color: var(--primary-gold);
+}
+
+.card h3 {
+  color: var(--primary-gold);
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.card p {
+  color: var(--text-muted);
+}
+
+/* Stats Section */
+.stats {
+  background: rgba(212, 175, 55, 0.05);
+  padding: 80px 5%;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  border-top: 1px solid rgba(212, 175, 55, 0.1);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.stat-item h2 {
+  font-size: 3rem;
+  color: var(--secondary-cyan);
+}
+
+.stat-item p {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 { font-size: 3rem; }
+  .stats { flex-direction: column; gap: 40px; }
+}

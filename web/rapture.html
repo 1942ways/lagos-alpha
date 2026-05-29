@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAPTURE — Battle for the Box (Season 1)</title>
+  <meta name="description" content="Audition for RAPTURE. A 1942 Luxury production. Battle for the box. Take the cash or open the box.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@200;300;400;500;600;700&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black: #050505;
+      --ob: #0C0C0C;
+      --ch: #181818;
+      --grey: #282828;
+      --mid: #606060;
+      --light: #A8A8A8;
+      --cream: #F4F1EB;
+      --white: #FCFBF9;
+      --gold: #C9A84C;
+      --gold-lt: #E6CC84;
+      --gold-dk: #7A6128;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: .015;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 160px;
+    }
+
+    /* ── CHROME LINE ── */
+    .chrome-line {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      z-index: 200;
+      background: linear-gradient(90deg, transparent 0%, var(--gold-dk) 25%, var(--gold) 50%, var(--gold-dk) 75%, transparent 100%);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 48px;
+      background: linear-gradient(to bottom, rgba(5, 5, 5, .96) 0%, transparent 100%);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(40, 40, 40, 0.3);
+    }
+
+    .n-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: .35em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .n-logo span {
+      color: var(--gold);
+    }
+
+    .n-status {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-dk);
+      padding: 4px 10px;
+    }
+
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 1100px;
+      margin: 120px auto 60px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+        margin-top: 100px;
+        gap: 32px;
+      }
+    }
+
+    /* ── LEFT COLUMN: INFORMATION ── */
+    .info-panel {
+      position: sticky;
+      top: 100px;
+    }
+
+    .series-badge {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+      display: inline-block;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 6vw, 76px);
+      font-weight: 300;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(14px, 1.8vw, 18px);
+      color: var(--gold-lt);
+      letter-spacing: 0.15em;
+      margin-bottom: 32px;
+    }
+
+    .description {
+      font-size: 14px;
+      font-weight: 200;
+      color: var(--light);
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+
+    .description strong {
+      color: var(--cream);
+      font-weight: 400;
+    }
+
+    /* ── VISUAL CARD ── */
+    .visual-card {
+      background: var(--ob);
+      border: 1px solid var(--grey);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .visual-img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16/11;
+      object-fit: cover;
+      filter: brightness(0.9) contrast(1.05);
+      transition: var(--transition);
+    }
+
+    .visual-card:hover .visual-img {
+      filter: brightness(1) contrast(1.08);
+      transform: scale(1.02);
+    }
+
+    .visual-caption {
+      padding: 16px 20px;
+      border-top: 1px solid var(--grey);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      display: flex;
+      justify-content: space-between;
+      background: var(--ch);
+    }
+
+    /* ── AUDIO TEASER CARD ── */
+    .audio-card {
+      background: var(--ch);
+      border: 1px solid var(--grey);
+      padding: 24px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .audio-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .audio-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .audio-subtitle {
+      font-size: 11px;
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .play-btn {
+      background: var(--gold);
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .play-btn:hover {
+      background: var(--gold-lt);
+      transform: scale(1.05);
+    }
+
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 14px solid var(--black);
+      margin-left: 4px;
+      transition: var(--transition);
+    }
+
+    .play-btn.playing .play-icon {
+      border: none;
+      width: 12px;
+      height: 14px;
+      border-left: 4px solid var(--black);
+      border-right: 4px solid var(--black);
+      margin-left: 0;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 4px;
+      background: var(--grey);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--gold);
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: width 0.1s linear;
+    }
+
+    .audio-time {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9px;
+      letter-spacing: 1px;
+      color: var(--mid);
+      min-width: 32px;
+      text-align: right;
+    }
+
+    /* ── RIGHT COLUMN: FORM PANEL ── */
+    .form-panel {
+      background: var(--ob);
+      border: 1px solid var(--grey);
+      padding: 48px 36px;
+    }
+
+    @media (max-width: 600px) {
+      .form-panel {
+        padding: 32px 20px;
+      }
+    }
+
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .form-subtitle {
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Barlow Condensed', sans-serif;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--grey);
+      padding-bottom: 12px;
+    }
+
+    .input-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: 8px;
+    }
+
+    .input-field {
+      width: 100%;
+      background: var(--ch);
+      border: 1px solid var(--grey);
+      color: var(--white);
+      padding: 14px 18px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .input-field:focus {
+      border-color: var(--gold-dk);
+      box-shadow: 0 0 8px rgba(201, 168, 76, 0.05);
+    }
+
+    .input-field::placeholder {
+      color: var(--mid);
+      font-size: 12px;
+    }
+
+    /* ── CHECKBOX CUSTOMIZATION ── */
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 24px;
+      cursor: pointer;
+    }
+
+    .checkbox-custom {
+      min-width: 16px;
+      height: 16px;
+      border: 1px solid var(--grey);
+      background: var(--ch);
+      margin-top: 3px;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .checkbox-group:hover .checkbox-custom {
+      border-color: var(--gold-dk);
+    }
+
+    .checkbox-group.checked .checkbox-custom {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .checkbox-group.checked .checkbox-custom::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: 4px;
+      height: 8px;
+      border: solid var(--black);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .checkbox-label {
+      font-size: 11px;
+      color: var(--light);
+      line-height: 1.6;
+      user-select: none;
+    }
+
+    .checkbox-label strong {
+      color: var(--white);
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--gold);
+      border: none;
+      padding: 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--black);
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 16px;
+    }
+
+    .submit-btn:hover {
+      background: var(--gold-lt);
+      letter-spacing: 5px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ob);
+      border-top: 1px solid var(--grey);
+      padding: 48px;
+      text-align: center;
+    }
+
+    .f-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: .28em;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .f-logo span {
+      color: var(--gold);
+    }
+
+    .f-manifesto {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-style: italic;
+      color: var(--mid);
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+
+    .f-copy {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 7px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+
+    /* ── SUCCESS MESSAGE ── */
+    .success-panel {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+      background: var(--ob);
+      border: 1px solid var(--gold-dk);
+    }
+
+    .success-icon {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .success-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .success-text {
+      font-size: 13px;
+      color: var(--light);
+      line-height: 1.8;
+      max-width: 320px;
+      margin: 0 auto 32px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="chrome-line"></div>
+
+  <!-- ── NAVIGATION ── -->
+  <nav>
+    <a href="#" class="n-logo">1942 <span>LUXURY</span></a>
+    <div class="n-status">SEASON 1: RAPTURE</div>
+  </nav>
+
+  <!-- ── CONTENT CONTAINER ── -->
+  <div class="container">
+
+    <!-- ── LEFT: INFO PANEL ── -->
+    <div class="info-panel">
+      <span class="series-badge">BATTLE FOR THE BOX</span>
+      <h1>RAPTURE<em>.</em></h1>
+      <p class="tagline">A 1942 LUXURY STREET OPERA</p>
+
+      <!-- ── EMBEDDED VISUAL MOCKUP ── -->
+      <div class="visual-card">
+        <img src="battle_for_the_box_mockup.png" alt="1942 Luxury Battle for the Box Mockup" class="visual-img">
+        <div class="visual-caption">
+          <span>PROP: THE MYSTERY BOX (MCMXLII GOLD EDITION)</span>
+          <span style="color: var(--gold);">LUXURY EDITION</span>
+        </div>
+      </div>
+
+      <p class="description">
+        Before streetwear had a language, **1942 Luxury** had a standard. Now, we take that standard to the streets. 
+        **RAPTURE** is the premiere season of **Battle for the Box**—a raw, street-level tournament designed to unearth the most authentic musical talent in Lagos. 
+        <br><br>
+        Two MCs face off on the street curb. The crowd decides who walks away with **The Box**. But right before you open it, you face the ultimate executive decision: **take the host's cash buyout offer, or reject it and bet on what's inside.**
+        <br><br>
+        We are starting organically. Setting: **The Streets**. First up is the rappers.
+      </p>
+
+      <!-- ── BEAT PLAYER CARD ── -->
+      <div class="audio-card">
+        <div class="audio-header">
+          <span class="audio-title">OFFICIAL BATTLE BEAT</span>
+          <span class="audio-subtitle">808 Eerie Choir Mix v1</span>
+        </div>
+        <div class="audio-controls">
+          <button class="play-btn" id="playBtn" onclick="togglePlay()">
+            <div class="play-icon" id="playIcon"></div>
+          </button>
+          <div class="progress-bar" id="progressBar" onclick="seek(event)">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <span class="audio-time" id="audioTime">0:00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RIGHT: FORM PANEL ── -->
+    <div>
+      <div class="form-panel" id="formPanel">
+        <h2 class="form-title">Enter the Arena</h2>
+        <p class="form-subtitle">Submit Your Audition</p>
+
+        <form id="auditionForm" onsubmit="submitAudition(event)">
+          <!-- Rapper Stage Name -->
+          <div class="input-group">
+            <label for="stageName">Stage Name / MC Alias</label>
+            <input type="text" id="stageName" name="stageName" class="input-field" placeholder="e.g. 19 / Alpha MC" required>
+          </div>
+
+          <!-- WhatsApp Number -->
+          <div class="input-group">
+            <label for="phone">WhatsApp Connection</label>
+            <input type="tel" id="phone" name="phone" class="input-field" placeholder="e.g. +234 80 1234 5678" required>
+          </div>
+
+          <!-- Instagram or TikTok Handle -->
+          <div class="input-group">
+            <label for="social">Social Handles (IG / TikTok)</label>
+            <input type="text" id="social" name="social" class="input-field" placeholder="e.g. @felixedache" required>
+          </div>
+
+          <!-- Audition Video Link -->
+          <div class="input-group">
+            <label for="videoLink">1-Minute Audition Video Link</label>
+            <input type="url" id="videoLink" name="videoLink" class="input-field" placeholder="Google Drive, YouTube, or TikTok video link" required>
+          </div>
+
+          <!-- Age Consent Checkbox -->
+          <div class="checkbox-group" id="chkAge" onclick="toggleCheckbox('chkAge')">
+            <div class="checkbox-custom"></div>
+            <p class="checkbox-label">I confirm that I am **21 years or older** at the time of this application.</p>
+          </div>
+
+          <!-- Content Release Checkbox -->
+          <div class="checkbox-group" id="chkRelease" onclick="toggleCheckbox('chkRelease')">
+            <div class="checkbox-custom"></div>
+            <p class="checkbox-label">I agree to the absolute **1942 Luxury Recording & Content Release Policy**. I understand that if I am selected, my performance, name, and likeness will be filmed and uploaded to the YouTube series, and I release all rights to the footage.</p>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="submit-btn">Transmit Audition</button>
+        </form>
+      </div>
+
+      <!-- ── SUCCESS BOX ── -->
+      <div class="success-panel" id="successPanel">
+        <div class="success-icon">MCMXLII</div>
+        <h2 class="success-title">Transmission Received.</h2>
+        <p class="success-text">Your audition has been logged into the 1942 Luxury database. Our executive scouts are reviewing your delivery. Keep your line open.</p>
+        <button class="submit-btn" onclick="resetForm()" style="background: transparent; border: 1px solid var(--grey); color: var(--light);">Submit Another</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="f-logo">1942 <span>LUXURY</span></div>
+    <div class="f-manifesto">Not For Everyone.</div>
+    <div class="f-copy">© 2026 MCMXLII Empire. All Rights Reserved.</div>
+  </footer>
+
+  <!-- ── SCRIPTS ── -->
+  <script>
+    // Audio Player Simulation (Simulating player behavior for premium interactive feel)
+    let isPlaying = false;
+    let progressInterval;
+    let progressPercent = 0;
+    
+    function togglePlay() {
+      const btn = document.getElementById('playBtn');
+      const icon = document.getElementById('playIcon');
+      const fill = document.getElementById('progressFill');
+      const time = document.getElementById('audioTime');
+      
+      isPlaying = !isPlaying;
+      
+      if (isPlaying) {
+        btn.classList.add('playing');
+        progressInterval = setInterval(() => {
+          if (progressPercent >= 100) {
+            clearInterval(progressInterval);
+            isPlaying = false;
+            btn.classList.remove('playing');
+            progressPercent = 0;
+            fill.style.width = '0%';
+            time.textContent = '0:00';
+            return;
+          }
+          progressPercent += 0.5;
+          fill.style.width = progressPercent + '%';
+          
+          // Simulate standard timeline minutes/seconds
+          let totalSeconds = Math.floor((progressPercent / 100) * 150); // 2:30 total
+          let mins = Math.floor(totalSeconds / 60);
+          let secs = totalSeconds % 60;
+          time.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+        }, 100);
+      } else {
+        btn.classList.remove('playing');
+        clearInterval(progressInterval);
+      }
+    }
+    
+    function seek(e) {
+      const bar = document.getElementById('progressBar');
+      const fill = document.getElementById('progressFill');
+      const rect = bar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const width = rect.width;
+      
+      progressPercent = (clickX / width) * 100;
+      fill.style.width = progressPercent + '%';
+      
+      let totalSeconds = Math.floor((progressPercent / 100) * 150);
+      let mins = Math.floor(totalSeconds / 60);
+      let secs = totalSeconds % 60;
+      document.getElementById('audioTime').textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+    }
+
+    // Custom Interactive Checkboxes
+    function toggleCheckbox(id) {
+      const chk = document.getElementById(id);
+      chk.classList.toggle('checked');
+    }
+
+    // Form Submission & Transmission
+    function submitAudition(e) {
+      e.preventDefault();
+      
+      const chkAge = document.getElementById('chkAge').classList.contains('checked');
+      const chkRelease = document.getElementById('chkRelease').classList.contains('checked');
+      
+      if (!chkAge || !chkRelease) {
+        alert("You must accept all legal terms and consent options before submitting your audition.");
+        return;
+      }
+      
+      const submitBtn = e.target.querySelector('.submit-btn');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = "Transmitting...";
+      submitBtn.disabled = true;
+
+      // Extract form data
+      const formData = {
+        stageName: document.getElementById('stageName').value,
+        phone: document.getElementById('phone').value,
+        social: document.getElementById('social').value,
+        videoLink: document.getElementById('videoLink').value,
+        ageConfirmed: chkAge ? 'Yes' : 'No',
+        releaseConfirmed: chkRelease ? 'Yes' : 'No'
+      };
+
+      // Submit to Formspree endpoint (used in index.html)
+      fetch('https://formspree.io/f/mdawlzzz', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(response => {
+        if (response.ok) {
+          // Transition to Success Panel with visual micro-animation
+          document.getElementById('formPanel').style.display = 'none';
+          document.getElementById('successPanel').style.display = 'block';
+          window.scrollTo({
+            top: document.getElementById('successPanel').offsetTop - 120,
+            behavior: 'smooth'
+          });
+        } else {
+          alert("An error occurred during transmission. Please try again.");
+        }
+      })
+      .catch(error => {
+        alert("Network error. Please check your internet connection.");
+      })
+      .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      });
+    }
+
+    function resetForm() {
+      document.getElementById('auditionForm').reset();
+      document.getElementById('chkAge').classList.remove('checked');
+      document.getElementById('chkRelease').classList.remove('checked');
+      
+      document.getElementById('formPanel').style.display = 'block';
+      document.getElementById('successPanel').style.display = 'none';
+    }
+  </script>
+</body>
+
+</html>
